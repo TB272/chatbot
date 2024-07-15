@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import os
 
 # Show title and description.
 st.title("💬 Chatbot")
@@ -13,7 +14,10 @@ st.write(
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
 # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
 
-secret_key = st.secrets["general"]["secret_key"]
+secret_key = os.getenv('SECRET_KEY')
+
+if not secret_key:
+    secret_key = st.secrets["general"]["secret_key"]
 
 openai_api_key = secret_key
 #openai_api_key = st.text_input("OpenAI API Key", type="password")
